@@ -1,28 +1,40 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="username">Username</label>
           <input
             type="text"
             id="username"
+            formControlName="username"
             class="form-control">
         </div>
+        <!-- <div class="error" *ngIf="signupForm.get('username').hasError('required') && signupForm.get('username').touched">
+          Field is required
+        </div> -->
+        <span class="help-block"
+        *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">Please enter a valid username!</span>
         <div class="form-group">
           <label for="email">email</label>
           <input
             type="text"
             id="email"
+            formControlName="email"
             class="form-control">
         </div>
+        <span class="help-block"
+        *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Please enter a valid email!</span>
         <div class="radio" *ngFor="let gender of genders">
           <label>
             <input
               type="radio"
+              formControlName="gender"
               [value]="gender">{{ gender }}
           </label>
         </div>
+        <span class="help-block"
+        *ngIf="!signupForm.valid && signupForm.touched">Please enter a valid data!</span>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
